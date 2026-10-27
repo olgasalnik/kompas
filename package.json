@@ -18,7 +18,8 @@
     "check:recognition": "node scripts/check-recognition.mjs",
     "summary": "node scripts/summary-pdf.mjs",
     "story": "node scripts/story-pdf.mjs",
-    "story:images": "node scripts/story-images.mjs"
+    "story:images": "node scripts/story-images.mjs",
+    "qr": "node scripts/qr.mjs"
   },
   "dependencies": {
     "@fontsource/golos-text": "5.2.5",
