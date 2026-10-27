@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Компас — сводка проекта</title>
+<link rel="stylesheet" href="../../src/styles/fonts.css">
+<style>
+  @page { size: A4; margin: 13mm 14mm 14mm; }
+  :root {
+    --ink: #1f1b33;
+    --ink-2: #4d4766;
+    --ink-3: #7b7594;
+    --brand: #4b3a8c;
+    --brand-soft: #f3f0fb;
+    --brand-line: #e3ddf2;
+    --mint: #1f8f6e;
+    --mint-soft: #e9f6f1;
+    --paper: #ffffff;
+    --code: #f6f5fa;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); }
+  body { font: 8.7pt/1.42 'Golos Text', 'Segoe UI', Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1, h2, h3 { font-family: 'Manrope', 'Golos Text', 'Segoe UI', sans-serif; margin: 0; text-wrap: balance; }
+  h2 { font-size: 11.5pt; font-weight: 800; color: var(--brand); margin: 0 0 6px; display: flex; align-items: center; gap: 8px; }
+  h2 .n { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--brand-soft); color: var(--brand); font-size: 8.5pt; }
+  p { margin: 0; }
+  code, .mono { font-family: 'Cascadia Mono', Consolas, 'Courier New', monospace; font-size: 8.4pt; }
+  code { background: var(--code); border: 1px solid var(--brand-line); border-radius: 4px; padding: 0 4px; white-space: nowrap; }
+  section { margin-top: 10px; }
+  h2, .box, .num, tr, .short > div, pre, .terms > * { break-inside: avoid; }
+  h2 { break-after: avoid; }
+  .keep { break-inside: avoid; }
+  .page-break { break-before: page; }
+
+  /* Шапка */
+  .head { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: end; padding-bottom: 12px; border-bottom: 2px solid var(--brand); }
+  .kicker { font-size: 8pt; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  h1 { font-size: 24pt; font-weight: 800; letter-spacing: -.01em; margin-top: 2px; }
+  h1 .mark { display: inline-block; width: 26px; height: 26px; border-radius: 8px; background: var(--brand); vertical-align: -3px; margin-right: 8px; position: relative; }
+  h1 .mark::after { content: ''; position: absolute; inset: 7px; border: 2px solid #fff; border-radius: 50%; }
+  .sub { font-size: 10pt; color: var(--ink-2); margin-top: 4px; max-width: 120mm; }
+  .stack-chips { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; max-width: 62mm; }
+  .chip { font-size: 8pt; font-weight: 600; padding: 3px 8px; border-radius: 99px; background: var(--brand-soft); color: var(--brand); border: 1px solid var(--brand-line); white-space: nowrap; }
+  .chip.mint { background: var(--mint-soft); color: var(--mint); border-color: #cfe9de; }
+
+  /* Коротко */
+  .short { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .short > div { background: var(--brand-soft); border-radius: 10px; padding: 9px 11px; }
+  .short b { display: block; font-family: 'Manrope', sans-serif; font-size: 9pt; color: var(--brand); margin-bottom: 2px; }
+
+  /* Таблицы */
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; font-size: 7.8pt; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); font-weight: 700; padding: 0 8px 5px; border-bottom: 1px solid var(--brand-line); }
+  td { padding: 4px 8px; border-bottom: 1px solid var(--brand-line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { font-weight: 600; white-space: nowrap; width: 1%; }
+  td.g { color: var(--ink-2); font-size: 8.4pt; }
+  .q { color: var(--ink-3); }
+  .tbl { border: 1px solid var(--brand-line); border-radius: 10px; padding: 8px 4px 2px; }
+
+  /* Схема */
+  .flow { display: grid; grid-template-columns: 1fr 14px 1.15fr 14px 1fr; align-items: stretch; gap: 0; }
+  .box { border: 1px solid var(--brand-line); border-radius: 10px; padding: 8px 10px; background: #fff; }
+  .box.core { background: var(--brand-soft); }
+  .box h3 { font-size: 9pt; font-weight: 800; margin-bottom: 2px; }
+  .box .p { font-size: 8.2pt; color: var(--ink-2); }
+  .arrow { display: grid; place-items: center; color: var(--brand); font-weight: 700; }
+  .flow-note { margin-top: 7px; font-size: 8.4pt; color: var(--ink-2); }
+
+  .cols { display: grid; grid-template-columns: 1fr 1.12fr; gap: 18px; }
+  .cols.wide-r { grid-template-columns: 0.95fr 1.2fr; }
+  ul { margin: 0; padding-left: 15px; }
+  li + li { margin-top: 3px; }
+  .terms { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; }
+  .terms dt { font-weight: 700; white-space: nowrap; }
+  .terms dd { margin: 0; color: var(--ink-2); }
+
+  pre { margin: 0; background: var(--code); border: 1px solid var(--brand-line); border-radius: 10px; padding: 8px 11px; line-height: 1.6; white-space: pre-wrap; }
+  pre .c { color: var(--ink-3); }
+
+  .nums { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin: 0; align-items: baseline; border: 1px solid var(--brand-line); border-radius: 10px; padding: 7px 12px; }
+  .nums dt { font-family: 'Manrope', sans-serif; font-size: 11pt; font-weight: 800; color: var(--brand); text-align: right; white-space: nowrap; }
+  .nums dd { margin: 0; color: var(--ink-2); }
+
+  .foot { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--brand-line); font-size: 8pt; color: var(--ink-3); display: flex; justify-content: space-between; gap: 12px; break-inside: avoid; }
+  .foot span:last-child { white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div>
+    <div class="kicker">Сводка проекта · октябрь 2026</div>
+    <h1><span class="mark"></span>Компас</h1>
+    <p class="sub">Цифровой ассистент врача и пациента для ведения тревожных и депрессивных состояний. Рабочий прототип (веб-приложение) на синтетических данных для кейс-чемпионата «Клинический компас».</p>
+  </div>
+  <div class="stack-chips">
+    <span class="chip">TypeScript</span><span class="chip">React 18</span><span class="chip">Vite 5</span><span class="chip">CSS</span><span class="chip">JSON-правила</span><span class="chip mint">работает в браузере без сервера</span>
+  </div>
+</header>
+
+<section>
+  <h2><span class="n">1</span>Если коротко</h2>
+  <div class="short">
+    <div><b>Что это</b>Сайт с тремя кабинетами: пациента (с телефона), врача (с ноутбука) и терапевта. Всё, что отмечает пациент, сразу видно врачу.</div>
+    <div><b>Что делает</b>Считает опросники, проверяет препарат по инструкции и рекомендациям Минздрава, следит за приёмом лекарства, вовремя подаёт сигнал врачу.</div>
+    <div><b>Чего не делает</b>Не ставит диагноз и ничего не назначает: решает врач. У каждого вывода есть кнопка «Почему?» — правило и источник.</div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">2</span>Технологии</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Что</th><th>Чем сделано</th><th>Что погуглить</th></tr></thead>
+      <tbody>
+        <tr><td>Язык</td><td><b>TypeScript 5.6</b> (строгий режим <code>strict</code>) — JavaScript со статическими типами. Компилируется в JavaScript (ES2021).</td><td class="g">TypeScript handbook</td></tr>
+        <tr><td>Интерфейс</td><td><b>React 18</b>, компоненты в файлах <code>.tsx</code> (синтаксис JSX), функциональные компоненты и хуки (<code>useState</code>, <code>useEffect</code>).</td><td class="g">React hooks, JSX</td></tr>
+        <tr><td>Навигация</td><td><b>React Router 6</b>, режим <code>HashRouter</code>: адреса вида <code>#/doctor</code>, <code>#/patient</code> — работает с любого хостинга и из файла.</td><td class="g">react-router HashRouter</td></tr>
+        <tr><td>Стили</td><td>Обычный <b>CSS</b> с переменными (дизайн-токены: цвета, шрифты, отступы). Без Tailwind и Bootstrap. Шрифты Golos Text и Manrope.</td><td class="g">CSS custom properties</td></tr>
+        <tr><td>Сборка</td><td><b>Vite 5</b> (сервер разработки и сборка), <b>Node.js</b> 20+ и <b>npm</b>. Офлайн-версия одним HTML-файлом — плагин <code>vite-plugin-singlefile</code>.</td><td class="g">Vite guide, npm scripts</td></tr>
+        <tr><td>Правила и данные</td><td>Файлы <b>JSON</b>: паспорт препарата, правила сигналов, маршрутизация, шкалы, источники. Код ядра их только исполняет — «правила как данные».</td><td class="g">rule engine, rules as data</td></tr>
+        <tr><td>Хранение</td><td>IndexedDB браузера в зашифрованном виде (<b>Web Crypto</b>, AES-GCM 256); вкладки синхронизируются через <code>BroadcastChannel</code>. Сервера в прототипе нет.</td><td class="g">Web Crypto AES-GCM, BroadcastChannel</td></tr>
+        <tr><td>Графики</td><td>Свои компоненты на <b>SVG</b>, без библиотек графиков.</td><td class="g">SVG charts</td></tr>
+        <tr><td>Распознавание текста</td><td><b>tesseract.js 6</b> (WebAssembly) прямо в браузере, модели русского и английского языков. Сканы никуда не отправляются.</td><td class="g">tesseract.js, OCR WebAssembly</td></tr>
+        <tr><td>Голосовой ввод</td><td>Диктовка — <b>Web Speech API</b>; голосовые сообщения — <b>MediaRecorder</b>, с расшифровкой.</td><td class="g">Web Speech API, MediaRecorder</td></tr>
+        <tr><td>Тесты</td><td><b>Vitest 2</b> — 120 автотестов ядра и сценариев. <b>Playwright</b> (<code>playwright-core</code>) с установленным Edge — 27 проверок в браузере и скриншоты.</td><td class="g">Vitest, Playwright</td></tr>
+        <tr><td>Прочее</td><td>Иконки <code>lucide-react</code>, QR-коды <code>qrcode.react</code>. Публикация — <b>GitHub Pages</b> через <b>GitHub Actions</b>.</td><td class="g">GitHub Pages Actions</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="keep">
+  <h2><span class="n">3</span>Как устроено</h2>
+  <div class="flow">
+    <div class="box"><h3>Кабинет пациента</h3><div class="p">Телефон: отметка приёма, самочувствие за минуту, опросники, чат, «Мне тяжело сейчас».</div></div>
+    <div class="arrow">→</div>
+    <div class="box core"><h3>«Сервер» стенда + клиническое ядро</h3><div class="p"><code>src/store/api.ts</code> — точка записи; ядро <code>src/core</code> исполняет JSON-правила: шкалы, противопоказания, сигналы, маршрут.</div></div>
+    <div class="arrow">→</div>
+    <div class="box"><h3>Кабинет врача</h3><div class="p">Ноутбук: сигналы по срочности, досье «на 30 секунд», терапия и безопасность, сообщения, журнал.</div></div>
+  </div>
+  <p class="flow-note">Данные лежат в браузере и мгновенно расходятся по открытым вкладкам. Для пилота <code>api.ts</code> заменяется клиентом настоящего сервера (REST API, например FastAPI или NestJS + PostgreSQL) — интерфейс и ядро не меняются.</p>
+</section>
+
+<section>
+  <h2><span class="n">4</span>Где что лежит</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Папка</th><th>Что внутри</th></tr></thead>
+      <tbody>
+        <tr><td><code>src/core</code></td><td>Клиническое ядро без интерфейса, чистые функции: движок правил, подсчёт шкал, приверженность, разбор текста, дозировки, график врача.</td></tr>
+        <tr><td><code>src/data</code></td><td>Правила как данные (JSON): <code>packs/aviandr.json</code> — паспорт препарата, <code>alertRules.json</code> — 17 правил сигналов, <code>routingRules.json</code>, <code>scales.json</code>, <code>sources.json</code>.</td></tr>
+        <tr><td><code>src/store</code></td><td>«Сервер» стенда: API действий, генератор синтетических пациентов, 7 демо-сценариев, синхронизация вкладок. Здесь же автотесты.</td></tr>
+        <tr><td><code>src/patient</code><br><code>src/doctor</code><br><code>src/therapist</code></td><td>Экраны трёх ролей: пациент (мобильный формат), врач (рабочее место на ноутбуке), терапевт (скрининг и маршрут к специалисту).</td></tr>
+        <tr><td><code>src/pages</code><br><code>src/ui</code></td><td>Главная, демо-сценарии, соответствие кейсу; общие компоненты (графики, окна, кнопка «Почему?», голосовой ввод, распознавание).</td></tr>
+        <tr><td><code>scripts</code></td><td>Скрипты Node.js: скриншоты, проверки в браузере, офлайн-копия, модели распознавания.</td></tr>
+        <tr><td><code>docs</code></td><td><code>PLAN.md</code> — план и статус, <code>screens/</code> — 43 скриншота; описание — <code>README.md</code>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="cols wide-r keep">
+  <div>
+    <h2><span class="n">5</span>Принципы</h2>
+    <ul>
+      <li><b>Врач решает.</b> Система предлагает, считает и напоминает, но ничего не назначает сама.</li>
+      <li><b>Правила как данные.</b> У правила есть код, версия и источник; исполняются только утверждённые.</li>
+      <li><b>Объяснимость.</b> «Почему?» показывает правило, входные данные и источник.</li>
+      <li><b>Без внешних языковых моделей.</b> Одинаковые данные — одинаковый результат.</li>
+      <li><b>Только синтетические данные.</b> Прототип не медицинское изделие.</li>
+    </ul>
+  </div>
+  <div>
+    <h2><span class="n">6</span>Термины предметной области</h2>
+    <dl class="terms">
+      <dt>СППВР (CDSS)</dt><dd>поддержка врачебных решений</dd>
+      <dt>PHQ-9, GAD-7, PHQ-4</dt><dd>опросники депрессии и тревоги</dd>
+      <dt>HAM-D, HAM-A, MADRS</dt><dd>шкалы, которые заполняет врач</dd>
+      <dt>Приверженность</dt><dd>регулярность приёма препарата</dd>
+      <dt>МКБ-10 (F41.1)</dt><dd>классификатор диагнозов</dd>
+      <dt>КР, ГРЛС</dt><dd>рекомендации; реестр лекарств</dd>
+      <dt>ИДС</dt><dd>добровольное согласие пациента</dd>
+      <dt>152-ФЗ, 323-ФЗ</dt><dd>о персональных данных; о здоровье</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="cols keep">
+  <div>
+    <h2><span class="n">7</span>Как запустить</h2>
+    <pre class="mono"><span class="c"># нужен Node.js 20 или новее</span>
+npm install            <span class="c"># зависимости</span>
+npm run dev            <span class="c"># сайт: localhost:5180</span>
+npm test               <span class="c"># 120 автотестов</span>
+npm run build          <span class="c"># сборка в dist/</span>
+npm run build:offline  <span class="c"># один HTML-файл</span></pre>
+  </div>
+  <div>
+    <h2><span class="n">8</span>В цифрах</h2>
+    <dl class="nums">
+      <dt>≈14 400</dt><dd>строк кода TypeScript / TSX</dd>
+      <dt>120</dt><dd>автотестов + 27 проверок в браузере</dd>
+      <dt>7</dt><dd>демо-сценариев с эталонными проверками</dd>
+      <dt>10</dt><dd>синтетических пациентов на стенде</dd>
+      <dt>17</dt><dd>правил сигналов трёх уровней срочности</dd>
+      <dt>0,9 МБ</dt><dd>офлайн-версия одним HTML-файлом</dd>
+    </dl>
+  </div>
+</section>
+
+<div class="foot">
+  <span>Подробнее — README.md и docs/PLAN.md. Данные синтетические; пороги сигналов — предложение команды.</span>
+  <span>Компас · 2026</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Окончания строк: .bat — как в Windows, .sh — как в macOS/Linux, остальное — по умолчанию Git
+*.bat text eol=crlf
+*.sh text eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary

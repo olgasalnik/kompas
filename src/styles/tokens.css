@@ -1,0 +1,116 @@
+/* Дизайн-токены «Компаса». Светлая тема: спокойный лавандовый фон, глубокий фиолетовый бренд,
+   мятный акцент. Клинические цвета зарезервированы под сигналы и всегда идут вместе с иконкой и текстом. */
+:root {
+  color-scheme: light;
+
+  /* Поверхности */
+  --bg: #f6f4fb;
+  --surface: #ffffff;
+  --surface-2: #f8f6fd;
+  --surface-3: #f0ecfa;
+  --surface-sunken: #ebe6f7;
+  --border: #e5e0f1;
+  --border-strong: #d2c9ea;
+  --overlay: rgba(28, 20, 56, 0.42);
+
+  /* Текст */
+  --ink: #1c1736;
+  --ink-2: #4a4465;
+  --ink-3: #777190;
+  --ink-inverse: #ffffff;
+
+  /* Бренд */
+  --brand: #4b3a8c;
+  --brand-strong: #3a2b73;
+  --brand-hover: #5644a0;
+  --brand-soft: #eeeafc;
+  --brand-soft-2: #e1dafa;
+  --brand-ink: #3e2f7d;
+  --lavender: #b9aef0;
+
+  /* Мятный акцент (позитивные состояния, «принял», улучшение) */
+  --mint: #1f9d78;
+  --mint-strong: #157a5c;
+  --mint-soft: #e2f5ee;
+  --mint-ink: #12684e;
+
+  /* Клинические сигналы */
+  --red: #c4303b;
+  --red-strong: #a3222c;
+  --red-soft: #fdecee;
+  --red-ink: #8f1b25;
+  --red-border: #ec9aa1;
+
+  --orange: #d4621c;
+  --orange-soft: #fdf0e6;
+  --orange-ink: #8f3f0c;
+  --orange-border: #f0b48c;
+
+  --amber: #b07612;
+  --amber-soft: #fdf5e2;
+  --amber-ink: #7d520a;
+  --amber-border: #e2bb6c;
+
+  --yellow: #c99a06;
+  --yellow-soft: #fdf8df;
+  --yellow-ink: #6f5500;
+  --yellow-border: #e9d27a;
+
+  --green: #1f8a4c;
+  --green-soft: #e5f4eb;
+  --green-ink: #14653a;
+
+  --info: #5a6890;
+  --info-soft: #eef1f8;
+  --info-ink: #3d4a70;
+
+  /* Серии графиков (проверены валидатором dataviz: CVD ΔE ≥ 8, контраст ≥ 3:1 на белом) */
+  --series-1: #6250d6;
+  --series-2: #14946a;
+  --series-3: #e0612e;
+  --chart-grid: #ece8f4;
+  --chart-axis: #cfc8e2;
+  --chart-muted: #8a84a3;
+
+  /* Типографика */
+  --font-body: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Manrope', 'Golos Text', system-ui, sans-serif;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 14.5px;
+  --fs-base: 15.5px;
+  --fs-lg: 17px;
+  --fs-xl: 20px;
+  --fs-2xl: 24px;
+  --fs-3xl: 30px;
+  --fs-4xl: 40px;
+  --fs-5xl: 52px;
+
+  /* Скругления и тени */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-2xl: 32px;
+  --r-full: 999px;
+  --shadow-xs: 0 1px 2px rgba(40, 26, 92, 0.06);
+  --shadow-sm: 0 1px 2px rgba(40, 26, 92, 0.05), 0 4px 14px rgba(40, 26, 92, 0.06);
+  --shadow-md: 0 2px 6px rgba(40, 26, 92, 0.06), 0 12px 32px rgba(40, 26, 92, 0.1);
+  --shadow-lg: 0 8px 24px rgba(40, 26, 92, 0.1), 0 28px 64px rgba(40, 26, 92, 0.16);
+  --ring: 0 0 0 3px rgba(98, 80, 214, 0.28);
+
+  /* Отступы */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --sidebar-w: 248px;
+}

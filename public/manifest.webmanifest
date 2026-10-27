@@ -1,0 +1,12 @@
+{
+  "name": "Компас — ассистент врача и пациента",
+  "short_name": "Компас",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f5fc",
+  "theme_color": "#4b3a8c",
+  "lang": "ru",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

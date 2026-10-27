@@ -1,0 +1,314 @@
+{
+  "note": "Критерии направления к психиатру — ПРЕДЛОЖЕНИЕ команды (раздел 5.4 рабочего документа) на основе общепринятых границ шкал. Не использовать в пилоте без подписи эксперта и привязки к разделам КР.",
+  "categories": {
+    "urgent": { "label": "ОБЯЗАТЕЛЬНО · экстренно", "term": "В тот же день" },
+    "mandatory": { "label": "ОБЯЗАТЕЛЬНО", "term": "В течение 1–2 недель" },
+    "desirable": { "label": "ЖЕЛАТЕЛЬНО", "term": "В течение 4 недель; можно отложить с комментарием" }
+  },
+  "rules": [
+    {
+      "id": "RT-URG-SUICIDE",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "urgent",
+      "to": "психиатр",
+      "term": "В тот же день",
+      "pack": "core",
+      "title": "Суицидальные намерения, план или подготовка; пункт 9 PHQ-9 ≥ 2",
+      "condition": { "any": [
+        { "fact": "phq9.item9", "op": "gte", "value": 2, "label": "PHQ-9, пункт 9" },
+        { "fact": "flags.suicidalPlan", "op": "truthy", "label": "Суицидальные намерения / план / подготовка" }
+      ] },
+      "messageDoctor": "Экстренная консультация психиатра в тот же день.",
+      "source": { "id": "EXP", "section": "Раздел 5.4; S5 — PHQ-9, пункт 9" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-URG-PSYCHOSIS",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "urgent",
+      "to": "психиатр",
+      "term": "В тот же день",
+      "pack": "core",
+      "title": "Психотические симптомы или признаки мании",
+      "condition": { "any": [
+        { "fact": "flags.psychosis", "op": "truthy", "label": "Психотические симптомы (голоса, бред)" },
+        { "fact": "flags.mania", "op": "truthy", "label": "Признаки мании" }
+      ] },
+      "messageDoctor": "Экстренная консультация психиатра в тот же день.",
+      "source": { "id": "EXP", "section": "Раздел 5.4" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-URG-SELFCARE",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "urgent",
+      "to": "психиатр",
+      "term": "В тот же день",
+      "pack": "core",
+      "title": "Отказ от еды и воды, невозможность самообслуживания",
+      "condition": { "fact": "flags.noSelfCare", "op": "truthy", "label": "Отказ от еды и воды / самообслуживания" },
+      "messageDoctor": "Экстренная консультация психиатра в тот же день.",
+      "source": { "id": "EXP", "section": "Раздел 5.4" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-URG-SOMATIC",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "urgent",
+      "to": "скорая медицинская помощь (112), затем психиатр",
+      "term": "Немедленно",
+      "pack": "core",
+      "title": "Судороги, обморок, признаки тяжёлой аллергической реакции",
+      "condition": { "fact": "flags.seizureSyncope", "op": "truthy", "label": "Судороги / обморок / тяжёлая аллергия" },
+      "messageDoctor": "Вызов скорой медицинской помощи; консультация психиатра после стабилизации.",
+      "source": { "id": "EXP", "section": "Раздел 5.4" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-MAN-ITEM9-ONE",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "mandatory",
+      "to": "психиатр",
+      "term": "Оценка врачом в течение 24 часов",
+      "pack": "core",
+      "title": "Пункт 9 PHQ-9 = 1",
+      "condition": { "fact": "phq9.item9", "op": "eq", "value": 1, "label": "PHQ-9, пункт 9" },
+      "messageDoctor": "Обязательная консультация психиатра; оценка врачом в течение 24 часов.",
+      "source": { "id": "EXP", "section": "Раздел 5.4; S5" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-MAN-SEVERE",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "mandatory",
+      "to": "психиатр",
+      "term": "В течение 1–2 недель",
+      "pack": "core",
+      "title": "PHQ-9 ≥ 20, или GAD-7 ≥ 15 вместе с PHQ-9 ≥ 15",
+      "condition": { "any": [
+        { "fact": "phq9.total", "op": "gte", "value": 20, "label": "PHQ-9, сумма" },
+        { "all": [
+          { "fact": "gad7.total", "op": "gte", "value": 15, "label": "GAD-7, сумма" },
+          { "fact": "phq9.total", "op": "gte", "value": 15, "label": "PHQ-9, сумма" }
+        ] }
+      ] },
+      "messageDoctor": "Обязательная консультация психиатра в течение 1–2 недель.",
+      "source": { "id": "EXP", "section": "Раздел 5.4; S5, S6 — градации" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-MAN-BIPOLAR",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "mandatory",
+      "to": "психиатр",
+      "term": "В течение 1–2 недель",
+      "pack": "core",
+      "title": "Подозрение на биполярное расстройство",
+      "condition": { "fact": "flags.bipolar", "op": "truthy", "label": "Подозрение на биполярность (клинический чек-лист)" },
+      "messageDoctor": "Обязательная консультация психиатра в течение 1–2 недель.",
+      "source": { "id": "EXP", "section": "Раздел 5.4" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-MAN-PREGNANCY",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "mandatory",
+      "to": "психиатр; акушер-гинеколог",
+      "term": "В течение 1–2 недель",
+      "pack": "core",
+      "title": "Беременность или лактация при необходимости медикаментозной терапии",
+      "condition": { "any": [
+        { "fact": "patient.pregnant", "op": "truthy", "label": "Беременность" },
+        { "fact": "patient.breastfeeding", "op": "truthy", "label": "Грудное вскармливание" }
+      ] },
+      "messageDoctor": "Обязательная консультация психиатра в течение 1–2 недель; консультация акушера-гинеколога.",
+      "source": { "id": "EXP", "section": "Раздел 5.4" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-MAN-SUBSTANCE",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "mandatory",
+      "to": "психиатр-нарколог",
+      "term": "В течение 1–2 недель",
+      "pack": "core",
+      "title": "ПАВ или алкоголь в сочетании с тревогой или депрессией",
+      "condition": { "any": [
+        { "fact": "flags.substance", "op": "truthy", "label": "Употребление ПАВ / алкоголя" },
+        { "fact": "patient.substanceDependence", "op": "truthy", "label": "Зависимость от алкоголя / ПАВ" }
+      ] },
+      "messageDoctor": "Обязательная консультация психиатра (нарколога) в течение 1–2 недель.",
+      "source": { "id": "EXP", "section": "Раздел 5.4" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-MAN-NORESPONSE",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "mandatory",
+      "to": "психиатр",
+      "term": "В течение 1–2 недель",
+      "pack": "core",
+      "title": "Нет улучшения после двух адекватных курсов; выраженная утрата функционирования",
+      "condition": { "any": [
+        { "fact": "flags.noImprovement2", "op": "truthy", "label": "Нет улучшения после двух курсов" },
+        { "fact": "flags.functionLoss", "op": "truthy", "label": "Выраженная утрата функционирования" }
+      ] },
+      "messageDoctor": "Обязательная консультация психиатра в течение 1–2 недель.",
+      "source": { "id": "EXP", "section": "Раздел 5.4" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-DES-SCORES",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "desirable",
+      "to": "психиатр",
+      "term": "В течение 4 недель",
+      "pack": "core",
+      "title": "PHQ-9 10–19 или GAD-7 ≥ 10 без красных флагов (пациента не ведёт психиатр)",
+      "condition": { "all": [
+        { "fact": "route.byPsychiatrist", "op": "falsy", "label": "Пациента не ведёт психиатр" },
+        { "any": [
+          { "fact": "phq9.total", "op": "between", "value": [10, 19], "label": "PHQ-9, сумма" },
+          { "fact": "gad7.total", "op": "gte", "value": 10, "label": "GAD-7, сумма" }
+        ] }
+      ] },
+      "messageDoctor": "Желательна консультация психиатра в течение 4 недель; можно отложить с комментарием.",
+      "source": { "id": "EXP", "section": "Раздел 5.4; S5, S6 — градации" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18",
+      "note": "В разделе 5.4 указан диапазон GAD-7 10–14; GAD-7 ≥ 15 без PHQ-9 ≥ 15 иначе не попадает ни в одну категорию — расширено до ≥ 10, на утверждение эксперту."
+    },
+    {
+      "id": "RT-DES-COMBO",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "desirable",
+      "to": "психиатр (консультация по комбинации)",
+      "term": "В течение 4 недель",
+      "pack": "aviandr",
+      "title": "Сочетание с антидепрессантом, назначенным другим врачом",
+      "condition": { "fact": "patient.meds", "op": "intersects", "value": ["сертралин", "пароксетин", "амитриптилин", "эсциталопрам", "флуоксетин", "флувоксамин", "венлафаксин", "дулоксетин", "миртазапин"], "label": "Текущие препараты" },
+      "messageDoctor": "Желательна консультация психиатра по комбинации с антидепрессантом.",
+      "source": { "id": "S4", "section": "Взаимодействие с другими лекарственными средствами" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-DES-CBT",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "desirable",
+      "to": "психотерапевт (КПТ)",
+      "term": "В течение 4 недель",
+      "pack": "core",
+      "title": "ГТР: психотерапия как отдельный или дополняющий вариант",
+      "condition": { "fact": "diagnosis.code", "op": "in", "value": ["F41.1"], "label": "Диагноз (МКБ-10)" },
+      "messageDoctor": "Желательно направление к психотерапевту для когнитивно-поведенческой терапии.",
+      "source": { "id": "S1", "section": "Лечение: психотерапия (раздел уточняет эксперт)" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-DES-AE-PERSIST",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "desirable",
+      "to": "лечащий психиатр (внеплановая консультация)",
+      "term": "В течение 4 недель",
+      "pack": "aviandr",
+      "title": "Нежелательная реакция не проходит более 2 недель",
+      "condition": { "fact": "ae.persist14", "op": "truthy", "label": "НЯ дольше 14 дней" },
+      "messageDoctor": "Желательна консультация: нежелательная реакция сохраняется дольше двух недель.",
+      "source": { "id": "S4", "section": "Побочное действие" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    },
+    {
+      "id": "RT-DES-OTHER",
+      "version": "1.0",
+      "type": "ROUTE",
+      "category": "desirable",
+      "to": "психиатр",
+      "term": "В течение 4 недель",
+      "pack": "core",
+      "title": "Частичный ответ, тяжёлая соматическая коморбидность, неэффективность у врача первичного звена, просьба пациента",
+      "condition": { "any": [
+        { "fact": "flags.partialResponse", "op": "truthy", "label": "Частичный ответ через 4–6 недель" },
+        { "fact": "flags.somaticComorbidity", "op": "truthy", "label": "Тяжёлая соматическая коморбидность" },
+        { "fact": "flags.primaryIneffective", "op": "truthy", "label": "Неэффективность терапии у врача первичного звена" },
+        { "fact": "flags.patientRequest", "op": "truthy", "label": "Просьба пациента или врача" }
+      ] },
+      "messageDoctor": "Желательна консультация психиатра в течение 4 недель.",
+      "source": { "id": "EXP", "section": "Раздел 5.4" },
+      "status": "approved_demo",
+      "approvedBy": "Требует подписи клинического эксперта",
+      "approvedAt": "2026-10-18"
+    }
+  ],
+  "redFlags": [
+    { "id": "suicidalPlan", "label": "Суицидальные мысли с намерением, планом или подготовкой" },
+    { "id": "psychosis", "label": "Психотические симптомы (голоса, бред)" },
+    { "id": "mania", "label": "Признаки мании или гипомании" },
+    { "id": "noSelfCare", "label": "Отказ от еды и воды, невозможность самообслуживания" },
+    { "id": "seizureSyncope", "label": "Судороги, обморок, признаки тяжёлой аллергической реакции" },
+    { "id": "bipolar", "label": "Подозрение на биполярное расстройство (эпизоды приподнятого настроения в анамнезе)" },
+    { "id": "substance", "label": "Употребление ПАВ или злоупотребление алкоголем" },
+    { "id": "noImprovement2", "label": "Нет улучшения после двух адекватных курсов терапии" },
+    { "id": "functionLoss", "label": "Выраженная утрата функционирования, диагностическая неясность" }
+  ],
+  "otherFlags": [
+    { "id": "partialResponse", "label": "Частичный ответ через 4–6 недель терапии" },
+    { "id": "somaticComorbidity", "label": "Тяжёлая соматическая коморбидность" },
+    { "id": "primaryIneffective", "label": "Неэффективность терапии у врача первичного звена" },
+    { "id": "patientRequest", "label": "Просьба пациента или врача" }
+  ],
+  "excludeChecklist": {
+    "note": "Что стоит исключить до психиатрических выводов (формулировка «рассмотреть», не диагноз). Перечень утверждает клинический эксперт.",
+    "items": [
+      { "id": "ecg", "group": "Кардиологические причины", "label": "ЭКГ, контроль АД и пульса (аритмии, артериальная гипертензия)" },
+      { "id": "thyroid", "group": "Эндокринные причины", "label": "Функция щитовидной железы (ТТГ)" },
+      { "id": "anemia", "group": "Гематологические причины", "label": "Общий анализ крови (анемия, гемоглобин)" },
+      { "id": "glucose", "group": "Метаболические причины", "label": "Глюкоза крови (гипогликемия)" },
+      { "id": "caffeine", "group": "Вещества", "label": "Кофеин, энергетики, стимуляторы" },
+      { "id": "alcohol", "group": "Вещества", "label": "Алкоголь и ПАВ, синдром отмены" },
+      { "id": "drugs", "group": "Лекарственные причины", "label": "Побочные эффекты текущих препаратов (деконгестанты, бронходилататоры, гормоны)" },
+      { "id": "pregnancy", "group": "Состояния", "label": "Беременность и послеродовой период" },
+      { "id": "bipolar", "group": "Психиатрические", "label": "Биполярность: эпизоды приподнятого настроения в анамнезе" }
+    ]
+  }
+}

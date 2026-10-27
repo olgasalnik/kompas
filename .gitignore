@@ -1,0 +1,12 @@
+node_modules/
+dist/
+offline/
+# модели распознавания текста копируются из node_modules перед dev и build (scripts/copy-ocr.mjs)
+public/ocr/
+.vite/
+*.tsbuildinfo
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+.claude/
